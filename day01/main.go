@@ -44,7 +44,7 @@ func parseFile() []int {
 func partOne(numbers []int) int {
 	target := 2020
 
-	c := make(chan [2]int, 2)
+	c := make(chan [2]int)
 	findTwoAddends(numbers, target, c)
 
 	result := <-c
@@ -55,7 +55,7 @@ func partOne(numbers []int) int {
 func partTwo(numbers []int) int {
 	target := 2020
 
-	c := make(chan [3]int, 3)
+	c := make(chan [3]int)
 	findThreeAddends(numbers, target, c)
 
 	result := <-c
@@ -71,7 +71,7 @@ func findTwoAddends(numbers []int, targetSum int, addends chan<- [2]int) {
 					addends <- [2]int{addend, v}
 				}
 			}
-		}(v, removeAtIndex(numbers, i), targetSum)
+		}(v, numbers[i+1:], targetSum)
 	}
 }
 
@@ -86,16 +86,8 @@ func findThreeAddends(numbers []int, targetSum int, addends chan<- [3]int) {
 							addends <- [3]int{addend1, addend2, v}
 						}
 					}
-				}(addend, v, removeAtIndex(numbers, i), targetSum)
+				}(addend, v, numbers[i+1:], targetSum)
 			}
-		}(v, removeAtIndex(numbers, i), targetSum)
+		}(v, numbers[i+1:], targetSum)
 	}
-}
-
-func removeAtIndex(s []int, i int) []int {
-	out := make([]int, len(s)-1)
-	s[len(s)-1], s[i] = s[i], s[len(s)-1]
-
-	copy(out, s[:len(s)-1])
-	return out
 }

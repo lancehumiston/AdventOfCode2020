@@ -63,7 +63,7 @@ func partTwo(numbers []int) int {
 }
 
 func findTwoAddends(numbers []int, targetSum int, addends chan<- [2]int) {
-	for i, v := range numbers {
+	for i, v := range numbers[:len(numbers)-1] {
 		go func(addend int, numbers []int, targetSum int) {
 			for _, v := range numbers {
 				sum := addend + v
@@ -76,7 +76,7 @@ func findTwoAddends(numbers []int, targetSum int, addends chan<- [2]int) {
 }
 
 func findThreeAddends(numbers []int, targetSum int, addends chan<- [3]int) {
-	for i, v := range numbers {
+	for i, v := range numbers[:len(numbers)-1] {
 		go func(addend int, numbers []int, targetSum int) {
 			for i, v := range numbers {
 				go func(addend1 int, addend2 int, numbers []int, targetSum int) {
@@ -84,6 +84,7 @@ func findThreeAddends(numbers []int, targetSum int, addends chan<- [3]int) {
 						sum := addend1 + addend2 + v
 						if sum == targetSum {
 							addends <- [3]int{addend1, addend2, v}
+							return
 						}
 					}
 				}(addend, v, numbers[i+1:], targetSum)

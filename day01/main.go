@@ -10,9 +10,9 @@ import (
 func main() {
 	numbers := parseFile()
 
-	log.Println(partOne(numbers))
+	log.Println("Part one:", partOne(numbers))
 
-	log.Println(partTwo(numbers))
+	log.Println("Part two:", partTwo(numbers))
 }
 
 func parseFile() []int {
@@ -84,7 +84,6 @@ func findThreeAddends(numbers []int, targetSum int, addends chan<- [3]int) {
 						sum := addend1 + addend2 + v
 						if sum == targetSum {
 							addends <- [3]int{addend1, addend2, v}
-							return
 						}
 					}
 				}(addend, v, numbers[i+1:], targetSum)

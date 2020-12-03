@@ -20,7 +20,7 @@ var partOneTests = []test{
 
 var partTwoTests = []test{
 	{
-		name:     "Part II - AoC Example #1",
+		name:     "Part 2 - AoC Example #1",
 		input:    []int{1721, 979, 366, 299, 675, 1456},
 		expected: 241861950,
 	},

@@ -77,10 +77,9 @@ func partTwo(grid [][]byte) (count int) {
 				}
 			}
 
+			count = count * c
 			if count == 0 {
 				count = c
-			} else {
-				count = count * c
 			}
 
 		}(s)

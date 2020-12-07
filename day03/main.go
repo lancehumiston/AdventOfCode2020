@@ -2,11 +2,9 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 	"sync"
-	"time"
 )
 
 func main() {
@@ -97,15 +95,11 @@ func parseFile() [][]byte {
 	}
 	defer file.Close()
 
-	start := time.Now()
-
 	grid := [][]byte{}
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		grid = append(grid, []byte(scanner.Text()))
 	}
-
-	fmt.Println("elapsed", time.Since(start))
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
